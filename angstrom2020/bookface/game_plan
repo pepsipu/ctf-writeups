@@ -1,0 +1,21 @@
+printf to leak stack address, pie & libc
+    rate fmt string for each
+    get leak
+    change ratings to 10 so we don't trigger the 0 write
+
+
+time to screw with random_r internals so it always returns 0
+set user->friends to unsafe_state->fptr
+    write 0
+set user->friends to unsafe_state->rptr
+    write 0
+
+
+set user->friends to saved rbp address
+    add friends equivalent to rbp address
+deref user->friends and write 0 to rbp (stack pivot time!!!!)
+    logout again and this time make sure the survey is mean
+    write will happen
+on leave, stack pivot to 0, where we can use friends to write the
+ret to one_gadget
+profit????
